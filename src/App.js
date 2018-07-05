@@ -77,8 +77,8 @@ class UserList extends Component {
             this.state.users.map((user, i) => <User userData={user} key={i}/>)
           }
         </div>
-
-        <button onClick={this.addUser}>Add new user</button>
+        
+        <UserAdder addUser={this.addUser}/>
       </div>
     );
   }
@@ -94,6 +94,15 @@ class User extends Component {
       <div> 
         <div> <span style={userBlock}>{user.name} {user.lastName}</span> </div>
       </div> 
+    );
+  }
+}
+
+
+class UserAdder extends Component {
+  render() {
+    return (
+      <button onClick={this.props.addUser}>Add new user</button>
     );
   }
 }
