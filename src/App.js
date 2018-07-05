@@ -51,13 +51,7 @@ class UserList extends Component {
       this.addUser = this.addUser.bind(this);
   }
 
-  addUser(e) {
-    var name = e.target.value;
-
-    var newUser = {
-      name: name,
-      trashCounter: 0
-    }
+  addUser(newUser) {
 
     this.setState({
       users: this.state.users.concat([newUser])
@@ -106,6 +100,7 @@ class UserAdder extends Component {
     }
 
     this.handleInput = this.handleInput.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleInput(e) {
@@ -114,11 +109,20 @@ class UserAdder extends Component {
     })
   }
 
+  handleClick(e) {
+    var newUser = {
+      name: this.state.name,
+      trashCounter: this.state.trashCounter
+    }
+
+    this.props.addUser(newUser);
+  }
+
   render() {
     return (
       <div>
         <p><b>New user:</b> {this.state.name}</p>
-        <button onClick={this.props.addUser} value={this.state.name}>Add new user</button>
+        <button onClick={this.handleClick} >Add new user</button>
         <input onChange={this.handleInput} value={this.state.name}/>
       </div>
     );
