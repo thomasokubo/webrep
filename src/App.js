@@ -28,27 +28,22 @@ class UserList extends Component {
       users : [
         {
           name: 'Lucas',
-          lastName: 'Natingale',
           trashCounter: 0
         },
         {
           name: 'Marcelo',
-          lastName: 'Amarildo',
           trashCounter: 0
         },
         {
           name: 'Pericles',
-          lastName: 'Montana',
           trashCounter: 0
         },
         {
           name: 'Thiago',
-          lastName: 'Otake',
           trashCounter: 0
         },
         {
           name: 'Vinicius',
-          lastName: 'Neymar',
           trashCounter: 0
         }
       ]}   
@@ -57,9 +52,10 @@ class UserList extends Component {
   }
 
   addUser(e) {
+    var name = e.target.value;
+
     var newUser = {
-      name: 'Menino',
-      lastName: 'Ney',
+      name: name,
       trashCounter: 0
     }
 
@@ -92,7 +88,7 @@ class User extends Component {
 
     return (
       <div> 
-        <div> <span style={userBlock}>{user.name} {user.lastName}</span> </div>
+        <div> <span style={userBlock}>{user.name} </span> </div>
       </div> 
     );
   }
@@ -100,9 +96,31 @@ class User extends Component {
 
 
 class UserAdder extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name : '',
+      trashCounter : 0
+    }
+
+    this.handleInput = this.handleInput.bind(this);
+  }
+
+  handleInput(e) {
+    this.setState({
+      name : e.target.value
+    })
+  }
+
   render() {
     return (
-      <button onClick={this.props.addUser}>Add new user</button>
+      <div>
+        <p><b>New user:</b> {this.state.name}</p>
+        <button onClick={this.props.addUser} value={this.state.name}>Add new user</button>
+        <input onChange={this.handleInput} value={this.state.name}/>
+      </div>
     );
   }
 }
