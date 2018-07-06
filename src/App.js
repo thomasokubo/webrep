@@ -10,11 +10,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
 
+        <Header />
         <UserList/>
+        
       </div>
     );
   }
@@ -64,7 +63,7 @@ class UserList extends Component {
       <div>
         <div>
           {
-            this.state.users.map((user, i) => <User userData={user} key={i}/>)
+            this.state.users.map((user, i) => <User user={user} key={i}/>)
           }
         </div>
         
@@ -75,14 +74,33 @@ class UserList extends Component {
 }
 
 class User extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      name: this.props.user.name,
+      counter: this.props.user.trashCounter
+
+    }
+
+    this.incrementCounter = this.incrementCounter.bind(this);
+
+  }
+
+  incrementCounter() {
+    this.setState({
+      counter: this.state.counter+1
+    });
+  }
+
   render() {
 
-    let user = this.props.userData;
     var userBlock = {marginRight : '20px'}
 
     return (
       <div> 
-        <div> <span style={userBlock}>{user.name} </span> </div>
+        <div> <span style={userBlock}>{this.state.name} {this.state.counter} </span> <button onClick={this.incrementCounter}>Add</button> </div>
       </div> 
     );
   }
@@ -122,11 +140,18 @@ class UserAdder extends Component {
     return (
       <div>
         <p><b>New user:</b> {this.state.name}</p>
-        <button onClick={this.handleClick} >Add new user</button>
         <input onChange={this.handleInput} value={this.state.name}/>
+        <button onClick={this.handleClick} >Add new user</button>
       </div>
     );
   }
 }
+
+
+var Header = props => (
+  <div>
+    <h1>Trash Table</h1>
+  </div>
+);
 
 export default App;
