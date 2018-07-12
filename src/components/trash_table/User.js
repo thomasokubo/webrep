@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import DateSelector from './DateSelector'
 
 class User extends Component {
 
@@ -7,8 +8,8 @@ class User extends Component {
   
       this.state = {
         name: this.props.user.name,
-        counter: this.props.user.trashCounter
-  
+        counter: this.props.user.trashCounter,
+        trashEntries: []
       }
   
       this.incrementCounter = this.incrementCounter.bind(this);
@@ -27,7 +28,7 @@ class User extends Component {
   
       return (
         <div> 
-          <div> <span style={userBlock}>{this.state.name} {this.state.counter} </span> <button onClick={this.incrementCounter}>Add</button> </div>
+          <div> <span style={userBlock}>{this.state.name} {this.state.counter} </span> <DateSelector incrementCounter={this.incrementCounter}/>  </div>
         </div> 
       );
     }
